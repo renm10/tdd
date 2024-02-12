@@ -76,3 +76,19 @@ class CounterTest(TestCase):
 
         #Check if it is equal to the updated value
         self.assertEqual(int(readCounterValue), update_counter.json["read_counter"]) #Change returned string to int
+
+    def test_delete_a_counter(self):
+        """ It should delete a counter """
+        client = self.client
+
+        #Creating the counter
+        createCounter = client.post('/counters/delete_counter')
+        self.assertEqual(createCounter.status_code, status.HTTP_201_CREATED)
+
+        #Delete Counter
+        deleteCounter = client.delete('/counters/delete_counter')
+        self.assertEqual(deleteCounter.status_code, status.HTTP_204_NO_CONTENT)
+
+        #Try deleting one more time  (Counter does not exist because deleted already)
+        deleteCounter = client.delete('/counters/delete_counter')
+        self.assertEqual(deleteCounter.status_code, status.HTTP_404_NOT_FOUND)

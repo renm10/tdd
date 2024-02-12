@@ -40,3 +40,15 @@ def read_counter(name):  # Function to implement route
 
     if name in COUNTERS:
         return str(COUNTERS[name]), status.HTTP_200_OK  # Return new counter and 200_OK return code
+    
+
+@app.route('/counters/<name>', methods=['DELETE'])  # Creates the route with method DELETE
+def delete_counter(name):  # Function to implement route
+    """Delte the counter"""
+    app.logger.info(f"Request to delete the given counter: {name}")
+
+    if name in COUNTERS:
+        del COUNTERS[name]
+        return COUNTERS, status.HTTP_204_NO_CONTENT
+    else:
+        return {"Message": f"Counter {name} does not exist"}, status.HTTP_404_NOT_FOUND
