@@ -40,7 +40,7 @@ def read_counter(name):  # Function to implement route
 
     if name in COUNTERS:
         return str(COUNTERS[name]), status.HTTP_200_OK  # Return new counter and 200_OK return code
-    
+
 
 @app.route('/counters/<name>', methods=['DELETE'])  # Creates the route with method DELETE
 def delete_counter(name):  # Function to implement route
