@@ -27,3 +27,7 @@ jobs:
       - name: Run unit tests with nose
         run:
           nosetests -v --with-spec --spec-color --with-coverage --cover-package=app
+      - name: Generate Documentation
+        run: |
+          sphinx-quickstart -q -p docs
+          sphinx-build -M html docs build
