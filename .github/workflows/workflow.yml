@@ -30,7 +30,21 @@ jobs:
       - name: Install Sphinx
         run:
           pip install -U sphinx
-      - name: Generate Documentation
+      - name: Setup for Documentation
         run: |
-          sphinx-quickstart -p docs -a renm10 --quiet
-          sphinx-build -M html docs build
+          mkdir docs
+          cd docs
+          sphinx-quickstart -q -p srcDocumentation -a renm10 --ext-autodoc --ext-viewcode -l en
+          cd ..
+          sphinx-apidoc -o docs src
+
+# Under conf.py
+# import os,sys
+
+# sys.path.insert(0, os.path.abspath('..'))
+# sys.path.append(os.path.abspath(
+#    os.path.join(__file__, "../../src")
+# ))
+
+# Under index.rst 's  toctree
+# modules
